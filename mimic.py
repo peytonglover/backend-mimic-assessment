@@ -19,7 +19,7 @@ You can try adding in line breaks around 70 columns so the output looks
 better.
 """
 
-__author__ = "???"
+__author__ = "peyton glover working with corbin creech"
 
 import random
 import sys
@@ -44,10 +44,20 @@ def create_mimic_dict(filename):
             }
     """
     # +++your code here+++
-    pass
+    mimic = {}
+    string = ''
+    with open(filename, 'r') as f:
+        for word in f.read().split():
+            if string not in mimic:
+                mimic[string] = [word]
+            else:
+                mimic[string].append(word)
+            string = word
+    print(mimic)
+    return mimic
 
 
-def print_mimic(mimic_dict, start_word):
+def print_mimic(mimic, start_word):
     """Given a previously created mimic_dict and start_word,
     prints 200 random words from mimic_dict as follows:
         - Print the start_word
@@ -56,8 +66,17 @@ def print_mimic(mimic_dict, start_word):
         - Repeat this process 200 times
     """
     # +++your code here+++
-    pass
-
+    count = 0
+    randomlist = []
+    w = start_word
+    while count <= 200:
+        if w in mimic:
+            randomword = random.choice(mimic[w])
+            randomlist.append(randomword)
+            w = randomword
+            count += 1
+    print(' '.join(randomlist))
+    return ' '.join(randomlist)
 
 # Provided main(), calls mimic_dict() and print_mimic()
 def main():
